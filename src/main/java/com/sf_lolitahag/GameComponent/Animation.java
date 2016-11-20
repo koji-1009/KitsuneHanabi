@@ -1,4 +1,4 @@
-package GameComponent;
+package com.sf_lolitahag.GameComponent;
 
 import java.awt.*;
 import java.io.*;
@@ -7,23 +7,23 @@ import java.util.regex.MatchResult;
 
 import javax.swing.JPanel;
 
-//•¡”ƒRƒ}‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+//è¤‡æ•°ã‚³ãƒã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 public class Animation{
 	
 	Graphics g;
 	JPanel p;
-	int x,y;		//•\¦ˆÊ’u
-	public int interval[];	//1ƒRƒ}–ˆ‚Ì•\¦ŠÔŠu
+	int x,y;		//è¡¨ç¤ºä½ç½®
+	public int interval[];	//1ã‚³ãƒæ¯ã®è¡¨ç¤ºé–“éš”
 	Image image[];	
-	int exist = 0;	//0:•\¦ 1:”ñ•\¦
-	int repeat = 0;	//0:ŒJ‚è•Ô‚³‚È‚¢ 1:ŒJ‚è•Ô‚µ
-	int disappear = 0;	//0:Ä¶I—¹‚ÉÁ‚¦‚È‚¢ 1:Á‚¦‚é
-	int number = 0;	//Œ»İ‚ÌƒRƒ}
-	int total = 0;	//‘ƒRƒ}”
+	int exist = 0;	//0:è¡¨ç¤º 1:éè¡¨ç¤º
+	int repeat = 0;	//0:ç¹°ã‚Šè¿”ã•ãªã„ 1:ç¹°ã‚Šè¿”ã—
+	int disappear = 0;	//0:å†ç”Ÿçµ‚äº†æ™‚ã«æ¶ˆãˆãªã„ 1:æ¶ˆãˆã‚‹
+	int number = 0;	//ç¾åœ¨ã®ã‚³ãƒ
+	int total = 0;	//ç·ã‚³ãƒæ•°
 	public int count = 0;
 	public int end;
 	
-	//n:‘ƒRƒ}”
+	//n:ç·ã‚³ãƒæ•°
 	public Animation(String filename, JPanel p){
 		String aniname;
 		File file = new File(filename);

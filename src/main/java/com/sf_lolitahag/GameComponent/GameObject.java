@@ -1,4 +1,4 @@
-package GameComponent;
+package com.sf_lolitahag.GameComponent;
 
 import javax.swing.JPanel;
 
