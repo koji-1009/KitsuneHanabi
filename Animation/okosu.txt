@@ -1,0 +1,33 @@
+total = 10
+repeat = 0
+disappear = 0
+
+Animation/okosu01.png
+interval = 15
+
+Animation/okosu02.png
+interval = 15
+
+Animation/okosu01.png
+interval = 15
+
+Animation/okosu02.png
+interval = 15
+
+Animation/okosu01.png
+interval = 15
+
+Animation/okosu02.png
+interval = 15
+
+Animation/okosu01.png
+interval = 15
+
+Animation/okosu02.png
+interval = 15
+
+Animation/okosu01.png
+interval = 15
+
+Animation/okosu02.png
+interval = 15

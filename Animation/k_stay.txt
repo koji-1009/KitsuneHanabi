@@ -1,0 +1,9 @@
+total = 2
+repeat = 1
+disappear = 0
+
+Animation/k_stay01.png
+interval = 30
+
+Animation/k_stay02.png
+interval = 30

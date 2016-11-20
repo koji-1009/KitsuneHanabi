@@ -1,0 +1,36 @@
+total = 11
+repeat = 1
+disappear = 0
+
+Animation/furin01.png
+interval = 200
+
+Animation/furin02.png
+interval = 10
+
+Animation/furin01.png
+interval = 30
+
+Animation/furin02.png
+interval = 10
+
+Animation/furin03.png
+interval = 5
+
+Animation/furin01.png
+interval = 10
+
+Animation/furin04.png
+interval = 10
+
+Animation/furin01.png
+interval = 10
+
+Animation/furin02.png
+interval = 10
+
+Animation/furin01.png
+interval = 200
+
+Animation/furin02.png
+interval = 30

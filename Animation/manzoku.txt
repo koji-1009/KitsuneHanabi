@@ -1,0 +1,12 @@
+total = 3
+repeat = 0
+disappear = 0
+
+Animation/manzoku01.png
+interval = 60
+
+Animation/manzoku02.png
+interval = 30
+
+Animation/manzoku03.png
+interval = 30
