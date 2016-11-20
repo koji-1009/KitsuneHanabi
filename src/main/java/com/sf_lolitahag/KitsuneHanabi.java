@@ -3,12 +3,15 @@ package com.sf_lolitahag;
 import com.sf_lolitahag.GameComponent.Animation;
 import com.sf_lolitahag.GameComponent.GameObject;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.URL;
 
 enum State {
     STAY,
@@ -436,9 +439,16 @@ class Scene {
     Scene(JPanel p) {
         this.p = p;
 
-        back = Toolkit.getDefaultToolkit().getImage("Animation/back.png");
-        room = Toolkit.getDefaultToolkit().getImage("Animation/room.png");
-        sky = Toolkit.getDefaultToolkit().getImage("Animation/sky.png");
+        try {
+            URL url = getClass().getResource("/" + "Animation/back.png");
+            back = ImageIO.read(url);
+            url = getClass().getResource("/" + "Animation/room.png");
+            room = ImageIO.read(url);
+            url = getClass().getResource("/" + "Animation/sky.png");
+            sky = ImageIO.read(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         ha = new HanabiAnime();
         ha.init(140, 330, p);
