@@ -1,11 +1,8 @@
-package com.sf_lolitahag;
+package com.sf_lolitahag.hanabi;
 
-import javax.swing.*;
 import java.awt.*;
 
-class Hanabi {
-    int x, y;
-    JPanel p;
+public class Hanabi {
     Hibana hibana[];
     int n_hibana = 100;
     Hinotama hinotama;
@@ -14,23 +11,18 @@ class Hanabi {
     int life;
     int count;
 
-    Hanabi(int x, int y, JPanel p) {
+    public Hanabi(int x, int y) {
         hibana = new Hibana[n_hibana];
-        this.p = p;
-        this.x = x;
-        this.y = y;
 
         life = 300;
-        hinotama = new Hinotama(x, y, p);
+        hinotama = new Hinotama(x, y);
         for (int i = 0; i < n_hibana; i++) {
-            hibana[i] = new Hibana(x, y, p);
+            hibana[i] = new Hibana(x, y);
         }
     }
 
     public void init(int x, int y) {
-        this.x = x;
-        this.y = y;
-        hinotama = new Hinotama(x, y, p);
+        hinotama = new Hinotama(x, y);
         hinotama.init(x, y);
         count = 0;
         exist = 1;

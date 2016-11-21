@@ -1,6 +1,5 @@
-package com.sf_lolitahag;
+package com.sf_lolitahag.hanabi;
 
-import javax.swing.*;
 import java.awt.*;
 
 class Hinotama {
@@ -14,9 +13,8 @@ class Hinotama {
     int life;
 
     Color color[];
-    JPanel p;
 
-    Hinotama(int x, int y, JPanel p) {
+    Hinotama(int x, int y) {
         tail = 20;
         life = (int) (50 + 100 * Math.random());
 
@@ -28,7 +26,6 @@ class Hinotama {
         this.y = new double[tail];
         color = new Color[tail];
 
-        this.p = p;
         for (int i = 0; i < tail; i++) {
             color[i] = new Color(r, g, b, (int) (100 * i / tail));
             //color[i] = new Color(100,100,100);

@@ -1,4 +1,4 @@
-package com.sf_lolitahag;
+package com.sf_lolitahag.hanabi;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ class Hibana {
     Color color[];
     JPanel p;
 
-    Hibana(int x, int y, JPanel p) {
+    Hibana(int x, int y) {
         tail = 30;
         resist = 0.05;
         gravity = 0.01;
@@ -33,7 +33,6 @@ class Hibana {
         this.y = new double[tail];
         color = new Color[tail];
 
-        this.p = p;
         for (int i = 0; i < tail; i++) {
             color[i] = new Color(r, g, b, (int) (255 * i / tail));
             this.x[i] = (double) x;
