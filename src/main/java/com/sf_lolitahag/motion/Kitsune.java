@@ -73,7 +73,7 @@ public class Kitsune extends AbstractMotion {
         switch (mMode) {
             case STAY: {
                 String[] list = getImageList();
-                mFileName = list[Utils.getRandNotEql(list.length)];
+                mFileName = list[Utils.getRandInt(list.length)];
             }
             break;
             case KIZUKU: {

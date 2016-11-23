@@ -24,26 +24,30 @@ public class Utils {
         return image;
     }
 
-    public static int getRandNotEql(int max) {
+    public static int getRandInt(int max) {
         if (max == 0) {
             throw new IllegalArgumentException("This method doesn\'t support 0.");
         }
         int ret = (int)(Math.random() * max);
         if (ret == max) {
-            ret = getRandNotEql(max);
+            ret = getRandInt(max);
         }
         return ret;
     }
 
     public static int getRandRange(int start, int end) {
         if (start > end) {
-            System.err.println("start = [" + start + "], end = [" + end + "]");
-            throw new IllegalArgumentException("Please end value is more large as start value.");
+            System.err.println("startFireball = [" + start + "], end = [" + end + "]");
+            throw new IllegalArgumentException("Please end value is more large as startFireball value.");
         }
-        int ret = (int) (Math.random() * end);
+        int ret = getRandInt(end + 1);
         if (ret < start) {
             ret = getRandRange(start, end);
         }
         return ret;
+    }
+
+    public static int getRandBaseCoe(int base, int coe) {
+        return base + getRandInt(coe + 1);
     }
 }

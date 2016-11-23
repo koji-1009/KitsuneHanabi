@@ -69,7 +69,7 @@ public class Human extends AbstractMotion {
                 break;
             case SLEEP: {
                 String[] list = getImageList();
-                mFileName = list[Utils.getRandNotEql(list.length)];
+                mFileName = list[Utils.getRandInt(list.length)];
             }
             break;
             case OKOSU: {

@@ -32,7 +32,7 @@ public class Furin extends AbstractMotion {
     }
 
     private void updateFileName() {
-        mFileName = IMAGE_LIST[Utils.getRandNotEql(IMAGE_LIST.length)];
+        mFileName = IMAGE_LIST[Utils.getRandInt(IMAGE_LIST.length)];
         mTimer.setDelay(Utils.getRandRange(PAINT_INTERVAL, PAINT_INTERVAL_MAX));
     }
 }
