@@ -12,23 +12,18 @@ public class Main {
     private static final int FRAME_WIDTH = 1000;
     private static final int FRAME_HEIGHT = 800;
     private static final String FRAME_TITLE = "日本の夏、ロリババアの夏";
-    private static JFrame mFrame;
     private static AbstractPanel mPanel;
 
     public static void main(String args[]) {
-        initFrame();
-
-        mPanel = new GamePanel();
-        mFrame.add(mPanel);
-        mFrame.setVisible(true);
+        SwingUtilities.invokeLater(Main::initFrame);
     }
 
     private static void initFrame() {
-        mFrame = new JFrame(FRAME_TITLE);
-        mFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        mFrame.setLocationRelativeTo(null); //初期画面表示 位置を中央に
-        mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //CLOSEでプログラム終了
-        mFrame.addKeyListener(new KeyListener() {
+        JFrame frame = new JFrame(FRAME_TITLE);
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.setLocationRelativeTo(null); //初期画面表示 位置を中央に
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //CLOSEでプログラム終了
+        frame.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
                 // nop
@@ -46,6 +41,10 @@ public class Main {
                 // nop
             }
         });
+
+        mPanel = new GamePanel();
+        frame.add(mPanel);
+        frame.setVisible(true);
     }
 }
 
