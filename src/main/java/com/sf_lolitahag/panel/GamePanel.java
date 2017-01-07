@@ -98,12 +98,12 @@ public class GamePanel extends AbstractPanel {
         }
     }
 
-    private void drawFireball(Graphics g, Fireball fireball) {
+    private void drawFireball(Graphics g, PaintObject fireball) {
         g.setColor(fireball.getColor());
         g.fillOval(fireball.getX(), fireball.getY(), 4, 4);
     }
 
-    private void drawSpark(Graphics g, Spark spark) {
+    private void drawSpark(Graphics g, PaintObject spark) {
         g.setColor(spark.getColor());
         g.fillOval(spark.getX(), spark.getY(), 2, 2);
     }

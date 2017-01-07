@@ -38,10 +38,10 @@ public class Fireballs {
         return mYs.getFirst();
     }
 
-    public ArrayList<Fireball> getArray() {
-        ArrayList<Fireball> ret = new ArrayList<>();
+    public ArrayList<PaintObject> getArray() {
+        ArrayList<PaintObject> ret = new ArrayList<>();
         for (int index = 0; index < FIREBALL_TAIL; index++) {
-            ret.add(new Fireball(mXs.get(index), mYs.get(index), mColors.get(index)));
+            ret.add(new PaintObject(mXs.get(index), mYs.get(index), mColors.get(index)));
         }
         return ret;
     }

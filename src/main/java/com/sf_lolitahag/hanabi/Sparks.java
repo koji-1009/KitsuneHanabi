@@ -54,10 +54,10 @@ public class Sparks {
         updateColor();
     }
 
-    public ArrayList<Spark> getArray() {
-        ArrayList<Spark> ret = new ArrayList<>();
+    public ArrayList<PaintObject> getArray() {
+        ArrayList<PaintObject> ret = new ArrayList<>();
         for (int index = 0; index < SPARKS_TAIL; index++) {
-            ret.add(new Spark(mXs.get(index), mYs.get(index), mColor));
+            ret.add(new PaintObject(mXs.get(index), mYs.get(index), mColor));
         }
         return ret;
     }

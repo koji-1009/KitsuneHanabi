@@ -2,13 +2,13 @@ package com.sf_lolitahag.hanabi;
 
 import java.awt.*;
 
-public class Spark {
+public class PaintObject {
 
     private int mX;
     private int mY;
     private Color mColor;
 
-    public Spark(int x, int y, Color color) {
+    public PaintObject(int x, int y, Color color) {
         mX = x;
         mY = y;
         mColor = color;
