@@ -7,43 +7,39 @@ public class Fireballs extends AbsPaintArray {
 
     private static final int FIREBALL_TAIL = 20;
     private static final int GAP_Y = -1;
-    private static final int INIT_ALPHA = 100;
+    private static final int INIT_ALPHA = 200;
     private static final int R = 255;
     private static final int G = 200;
     private static final int B = 200;
-    private ArrayList<Color> mColors = new ArrayList<>();
-    private double mGapX;
+    private double mGapX = 0;
+    private ArrayList<Color> mColorList = new ArrayList<>();
 
     public Fireballs() {
     }
 
     @Override
     public void init(int x, int y) {
-        mXs.clear();
-        mYs.clear();
-        for (int index = 0; index < FIREBALL_TAIL; index++) {
-            mXs.add(x);
-            mYs.add(y);
-            mColors.add(new Color(R, G, B, INIT_ALPHA * (FIREBALL_TAIL - index) / FIREBALL_TAIL));
-        }
-    }
+        super.init(x, y);
+        mColorList.clear();
 
-    @Override
-    public ArrayList<PaintObject> getArray() {
-        ArrayList<PaintObject> ret = new ArrayList<>();
         for (int index = 0; index < FIREBALL_TAIL; index++) {
-            ret.add(new PaintObject(mXs.get(index), mYs.get(index), mColors.get(index)));
+            Color color = new Color(R, G, B, INIT_ALPHA * (FIREBALL_TAIL - index) / FIREBALL_TAIL);
+            mPaintObjectList.add(new PaintObjectImpl(x, y, color));
+            mColorList.add(color);
         }
-        return ret;
     }
 
     @Override
     public void next() {
         mGapX = -0.3 * mGapX + Math.random();
-        mXs.addFirst(mXs.getFirst() + (int) mGapX);
-        mYs.addFirst(mYs.getFirst() + GAP_Y);
+        PaintObject firstObject = mPaintObjectList.getFirst();
+        PaintObject newObject = new PaintObjectImpl(firstObject.getX() + (int) mGapX, firstObject.getY() + GAP_Y);
 
-        mXs.removeLast();
-        mYs.removeLast();
+        mPaintObjectList.addFirst(newObject);
+        mPaintObjectList.removeLast();
+
+        for (int index = 0; index < FIREBALL_TAIL; index++) {
+            mPaintObjectList.get(index).updateColor(mColorList.get(index));
+        }
     }
 }

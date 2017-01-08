@@ -2,27 +2,10 @@ package com.sf_lolitahag.hanabi;
 
 import java.awt.*;
 
-public class PaintObject {
+public interface PaintObject {
 
-    private int mX;
-    private int mY;
-    private Color mColor;
-
-    public PaintObject(int x, int y, Color color) {
-        mX = x;
-        mY = y;
-        mColor = color;
-    }
-
-    public int getX() {
-        return mX;
-    }
-
-    public int getY() {
-        return mY;
-    }
-
-    public Color getColor() {
-        return mColor;
-    }
+    int getX();
+    int getY();
+    Color getColor();
+    void updateColor(Color color);
 }

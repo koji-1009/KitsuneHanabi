@@ -3,7 +3,6 @@ package com.sf_lolitahag.hanabi;
 import com.sf_lolitahag.Utils;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Sparks extends AbsPaintArray {
 
@@ -13,9 +12,10 @@ public class Sparks extends AbsPaintArray {
     private static final int INIT_FADE = 225;
     private static final int R = 255;
     private int mCount;
+    private int mG;
+    private int mB;
     private double mGapX;
     private double mGapY;
-    private Color mColor;
 
     public Sparks() {
     }
@@ -24,9 +24,11 @@ public class Sparks extends AbsPaintArray {
     public void init(int x, int y) {
         super.init(x, y);
 
+        mG = Utils.getRandBaseCoe(100, 150);
+        mB = Utils.getRandBaseCoe(100, 150);
+        Color color = new Color(R, mG, mB);
         for (int index = 0; index < SPARKS_TAIL; index++) {
-            mXs.add(x);
-            mYs.add(y);
+            mPaintObjectList.add(new PaintObjectImpl(x, y, color));
         }
 
         mCount = 0;
@@ -35,8 +37,6 @@ public class Sparks extends AbsPaintArray {
         double v = Utils.getRandBaseCoe(25, 10);
         mGapX = v * Math.cos(roll);
         mGapY = v * Math.sin(roll);
-
-        updateColor();
     }
 
     @Override
@@ -45,29 +45,25 @@ public class Sparks extends AbsPaintArray {
         double coe = RESIST * Math.pow(Math.pow(mGapX, 2) + Math.pow(mGapY, 2), 0.5);
         mGapX -= coe * mGapX;
         mGapY -= coe * mGapY;
-        mXs.addFirst(mXs.getFirst() + (int) mGapX);
-        mYs.addFirst(mYs.getFirst() + (int) mGapY);
 
-        mXs.removeLast();
-        mYs.removeLast();
+        PaintObject firstObject = mPaintObjectList.getFirst();
+        PaintObject newObject = new PaintObjectImpl(firstObject.getX() + (int) mGapX,
+                firstObject.getY() + (int) mGapY, firstObject.getColor());
+
+        mPaintObjectList.addFirst(newObject);
+        mPaintObjectList.removeLast();
+
         updateColor();
-    }
-
-    @Override
-    public ArrayList<PaintObject> getArray() {
-        ArrayList<PaintObject> ret = new ArrayList<>();
-        for (int index = 0; index < SPARKS_TAIL; index++) {
-            ret.add(new PaintObject(mXs.get(index), mYs.get(index), mColor));
-        }
-        return ret;
     }
 
     private void updateColor() {
         int fade = INIT_FADE - mCount;
         if (fade >= 0) {
-            int g = Utils.getRandBaseCoe(100, 150);
-            int b = Utils.getRandBaseCoe(100, 150);
-            mColor = new Color(R, g, b, fade);
+            Color color = new Color(R, mG, mB, fade);
+            for (PaintObject object : mPaintObjectList) {
+                object.updateColor(color);
+            }
+
             mCount += 15;
         }
     }
