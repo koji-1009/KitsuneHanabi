@@ -2,9 +2,8 @@ package com.sf_lolitahag.hanabi;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
-public class Fireballs {
+public class Fireballs extends AbsPaintArray {
 
     private static final int FIREBALL_TAIL = 20;
     private static final int GAP_Y = -1;
@@ -12,14 +11,13 @@ public class Fireballs {
     private static final int R = 255;
     private static final int G = 200;
     private static final int B = 200;
-    private LinkedList<Integer> mXs = new LinkedList<>();
-    private LinkedList<Integer> mYs = new LinkedList<>();
     private ArrayList<Color> mColors = new ArrayList<>();
     private double mGapX;
 
     public Fireballs() {
     }
 
+    @Override
     public void init(int x, int y) {
         mXs.clear();
         mYs.clear();
@@ -30,14 +28,7 @@ public class Fireballs {
         }
     }
 
-    public int getTopX() {
-        return mXs.getFirst();
-    }
-
-    public int getTopY() {
-        return mYs.getFirst();
-    }
-
+    @Override
     public ArrayList<PaintObject> getArray() {
         ArrayList<PaintObject> ret = new ArrayList<>();
         for (int index = 0; index < FIREBALL_TAIL; index++) {
@@ -46,6 +37,7 @@ public class Fireballs {
         return ret;
     }
 
+    @Override
     public void next() {
         mGapX = -0.3 * mGapX + Math.random();
         mXs.addFirst(mXs.getFirst() + (int) mGapX);

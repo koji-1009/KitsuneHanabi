@@ -4,17 +4,14 @@ import com.sf_lolitahag.Utils;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
-public class Sparks {
+public class Sparks extends AbsPaintArray {
 
     private static final double RESIST = 0.05;
     private static final double GRAVITY = 1;
     private static final int SPARKS_TAIL = 20;
     private static final int INIT_FADE = 225;
     private static final int R = 255;
-    private LinkedList<Integer> mXs = new LinkedList<>();
-    private LinkedList<Integer> mYs = new LinkedList<>();
     private int mCount;
     private double mGapX;
     private double mGapY;
@@ -23,9 +20,10 @@ public class Sparks {
     public Sparks() {
     }
 
+    @Override
     public void init(int x, int y) {
-        mXs.clear();
-        mYs.clear();
+        super.init(x, y);
+
         for (int index = 0; index < SPARKS_TAIL; index++) {
             mXs.add(x);
             mYs.add(y);
@@ -41,6 +39,7 @@ public class Sparks {
         updateColor();
     }
 
+    @Override
     public void next() {
         mGapY += GRAVITY;
         double coe = RESIST * Math.pow(Math.pow(mGapX, 2) + Math.pow(mGapY, 2), 0.5);
@@ -54,6 +53,7 @@ public class Sparks {
         updateColor();
     }
 
+    @Override
     public ArrayList<PaintObject> getArray() {
         ArrayList<PaintObject> ret = new ArrayList<>();
         for (int index = 0; index < SPARKS_TAIL; index++) {
