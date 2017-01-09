@@ -1,7 +1,9 @@
 package com.sf_lolitahag.panel;
 
 import com.sf_lolitahag.Utils;
-import com.sf_lolitahag.hanabi.*;
+import com.sf_lolitahag.hanabi.Firework;
+import com.sf_lolitahag.hanabi.FireworkManager;
+import com.sf_lolitahag.hanabi.PaintObject;
 import com.sf_lolitahag.motion.AbstractMotion;
 import com.sf_lolitahag.motion.Furin;
 import com.sf_lolitahag.motion.Human;
@@ -92,18 +94,18 @@ public class GamePanel extends AbstractPanel {
 
     private void drawHinotama(final Graphics g, final Firework fireworks) {
         if (fireworks.isFireballShow()) {
-            fireworks.getFireball().getArray().forEach(fireball ->  drawFireball(g, fireball));
-        } else if (fireworks.isSparksShow()) {
-            fireworks.getSparksList().forEach(sparks -> sparks.getArray().forEach(spark -> drawSpark(g, spark)));
+            fireworks.getFireball().getArray().forEach(fireball -> drawFireball(g, fireball));
+        } else if (fireworks.isSparkShow()) {
+            fireworks.getSparkList().forEach(sparks -> sparks.getArray().forEach(spark -> drawSpark(g, spark)));
         }
     }
 
-    private void drawFireball(Graphics g, Fireball fireball) {
+    private void drawFireball(Graphics g, PaintObject fireball) {
         g.setColor(fireball.getColor());
         g.fillOval(fireball.getX(), fireball.getY(), 4, 4);
     }
 
-    private void drawSpark(Graphics g, Spark spark) {
+    private void drawSpark(Graphics g, PaintObject spark) {
         g.setColor(spark.getColor());
         g.fillOval(spark.getX(), spark.getY(), 2, 2);
     }
