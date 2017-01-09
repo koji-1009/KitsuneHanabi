@@ -6,19 +6,19 @@ import java.awt.*;
 
 public class Spark extends AbsPaintArray {
 
-    private static final double RESIST = 0.05;
-    private static final double GRAVITY = 0.7;
-    private static final int TAIL_RANGE_START = 5;
-    private static final int TAIL_RANGE_END = 30;
-    private static final int INIT_ALPHA = 225;
+    private static final int ALPHA_BASE = 225;
+    private static final int TAIL_COUNT_MIN = 5;
+    private static final int TAIL_COUNT_MAX = 30;
     private static final int COLOR_R_BASE = 200;
     private static final int COLOR_R_COEFFICIENT = 50;
     private static final int COLOR_GB_BASE = 50;
     private static final int COLOR_GB_COEFFICIENT = 200;
     private static final int EXPLOSION_BASE = 15;
     private static final int EXPLOSION_COEFFICIENT = 20;
-    private static final int ALPHA_RANGE_START = 10;
-    private static final int ALPHA_RANGE_END = 30;
+    private static final int ALPHA_DECREASE_MIN = 10;
+    private static final int ALPHA_DECREASE_MAX = 30;
+    private static final double RESIST = 0.05;
+    private static final double GRAVITY = 0.7;
     private double mGapX;
     private double mGapY;
 
@@ -32,9 +32,9 @@ public class Spark extends AbsPaintArray {
         int r = Utils.getRandBaseCoe(COLOR_R_BASE, COLOR_R_COEFFICIENT);
         int g = Utils.getRandBaseCoe(COLOR_GB_BASE, COLOR_GB_COEFFICIENT);
         int b = Utils.getRandBaseCoe(COLOR_GB_BASE, COLOR_GB_COEFFICIENT);
-        Color color = new Color(r, g, b, INIT_ALPHA);
+        Color color = new Color(r, g, b, ALPHA_BASE);
 
-        int tail = Utils.getRandRange(TAIL_RANGE_START, TAIL_RANGE_END);
+        int tail = Utils.getRandRange(TAIL_COUNT_MIN, TAIL_COUNT_MAX);
         for (int index = 0; index < tail; index++) {
             mPaintObjectList.add(new PaintObjectImpl(x, y, color));
         }
@@ -62,7 +62,7 @@ public class Spark extends AbsPaintArray {
         mPaintObjectList.removeLast();
 
         Color color = firstObject.getColor();
-        int alpha = color.getAlpha() - Utils.getRandRange(ALPHA_RANGE_START, ALPHA_RANGE_END);
+        int alpha = color.getAlpha() - Utils.getRandRange(ALPHA_DECREASE_MIN, ALPHA_DECREASE_MAX);
         if (alpha < 0) {
             alpha = 0;
         }
