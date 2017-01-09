@@ -17,7 +17,7 @@ public class Firework {
     private static final int FIREBALL_LIFETIME_COEFFICIENT = 2500;
     private static final int SPARK_LIFETIME_BASE = 1250;
     private static final int SPARK_LIFETIME_COEFFICIENT = 1000;
-    private static final double LAUNCH_PERCENT = 0.4;
+    private static final double LAUNCH_PERCENT = 0.7;
     private boolean mIsRun;
     private boolean mFireballShow;
     private boolean mSparksShow;
