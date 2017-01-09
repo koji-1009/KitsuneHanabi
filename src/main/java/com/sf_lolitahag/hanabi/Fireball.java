@@ -5,7 +5,7 @@ import com.sf_lolitahag.Utils;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Fireballs extends AbsPaintArray {
+public class Fireball extends AbsPaintArray {
 
     private static final int GAP_Y = -1;
     private static final int TAIL_RANGE_START = 10;
@@ -17,7 +17,7 @@ public class Fireballs extends AbsPaintArray {
     private static final int ALPHA_RANGE_END = 200;
     private ArrayList<Color> mColorList = new ArrayList<>();
 
-    public Fireballs() {
+    public Fireball() {
     }
 
     @Override

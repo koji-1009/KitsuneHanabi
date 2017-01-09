@@ -4,7 +4,7 @@ import com.sf_lolitahag.Utils;
 
 import java.awt.*;
 
-public class Sparks extends AbsPaintArray {
+public class Spark extends AbsPaintArray {
 
     private static final double RESIST = 0.05;
     private static final double GRAVITY = 0.7;
@@ -22,7 +22,7 @@ public class Sparks extends AbsPaintArray {
     private double mGapX;
     private double mGapY;
 
-    public Sparks() {
+    public Spark() {
     }
 
     @Override

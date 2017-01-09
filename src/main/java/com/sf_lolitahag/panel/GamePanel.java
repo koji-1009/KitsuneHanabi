@@ -96,7 +96,7 @@ public class GamePanel extends AbstractPanel {
         if (fireworks.isFireballShow()) {
             fireworks.getFireball().getArray().forEach(fireball -> drawFireball(g, fireball));
         } else if (fireworks.isSparksShow()) {
-            fireworks.getSparksList().forEach(sparks -> sparks.getArray().forEach(spark -> drawSpark(g, spark)));
+            fireworks.getSparkList().forEach(sparks -> sparks.getArray().forEach(spark -> drawSpark(g, spark)));
         }
     }
 

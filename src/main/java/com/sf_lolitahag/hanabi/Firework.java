@@ -16,26 +16,26 @@ public class Firework {
     private boolean mIsRun;
     private boolean mFireballShow;
     private boolean mSparksShow;
-    private Fireballs mFireball;
-    private ArrayList<Sparks> mSparksList = new ArrayList<>();
+    private Fireball mFireball;
+    private ArrayList<Spark> mSparkList = new ArrayList<>();
     private Timer mUpdateTimer = new Timer(UPDATE_FIREBALL, (e) -> updatePosition());
     private Timer mFireballTimer;
     private Timer mSparkTimer;
 
     public Firework() {
-        mFireball = new Fireballs();
+        mFireball = new Fireball();
         for (int index = 0; index < SPARKS_NUM; index++) {
-            mSparksList.add(new Sparks());
+            mSparkList.add(new Spark());
         }
         mIsRun = false;
     }
 
-    public Fireballs getFireball() {
+    public Fireball getFireball() {
         return mFireball;
     }
 
-    public ArrayList<Sparks> getSparksList() {
-        return mSparksList;
+    public ArrayList<Spark> getSparkList() {
+        return mSparkList;
     }
 
     public boolean isFireballShow() {
@@ -75,14 +75,14 @@ public class Firework {
     }
 
     private void initSparks(int x, int y) {
-        mSparksList.forEach(sparks -> sparks.init(x, y));
+        mSparkList.forEach(spark -> spark.init(x, y));
     }
 
     private void updatePosition() {
         if (mFireballShow) {
             mFireball.next();
         } else if (mSparksShow) {
-            mSparksList.forEach(Sparks::next);
+            mSparkList.forEach(Spark::next);
         }
     }
 
