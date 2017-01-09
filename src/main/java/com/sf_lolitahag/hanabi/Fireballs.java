@@ -1,17 +1,20 @@
 package com.sf_lolitahag.hanabi;
 
+import com.sf_lolitahag.Utils;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Fireballs extends AbsPaintArray {
 
-    private static final int FIREBALL_TAIL = 20;
     private static final int GAP_Y = -1;
-    private static final int INIT_ALPHA = 200;
+    private static final int TAIL_RANGE_START = 10;
+    private static final int TAIL_RANGE_END = 25;
     private static final int R = 255;
     private static final int G = 200;
     private static final int B = 200;
-    private double mGapX = 0;
+    private static final int ALPHA_RANGE_START = 60;
+    private static final int ALPHA_RANGE_END = 200;
     private ArrayList<Color> mColorList = new ArrayList<>();
 
     public Fireballs() {
@@ -22,8 +25,10 @@ public class Fireballs extends AbsPaintArray {
         super.init(x, y);
         mColorList.clear();
 
-        for (int index = 0; index < FIREBALL_TAIL; index++) {
-            Color color = new Color(R, G, B, INIT_ALPHA * (FIREBALL_TAIL - index) / FIREBALL_TAIL);
+        int tail = Utils.getRandRange(TAIL_RANGE_START, TAIL_RANGE_END);
+        int alpha = Utils.getRandRange(ALPHA_RANGE_START, ALPHA_RANGE_END);
+        for (int index = 0; index < tail; index++) {
+            Color color = new Color(R, G, B, alpha * (tail - index) / tail);
             mPaintObjectList.add(new PaintObjectImpl(x, y, color));
             mColorList.add(color);
         }
@@ -31,14 +36,14 @@ public class Fireballs extends AbsPaintArray {
 
     @Override
     public void next() {
-        mGapX = -0.3 * mGapX + Math.random();
         PaintObject firstObject = mPaintObjectList.getFirst();
-        PaintObject newObject = new PaintObjectImpl(firstObject.getX() + (int) mGapX, firstObject.getY() + GAP_Y);
+        PaintObject newObject = new PaintObjectImpl(firstObject.getX(), firstObject.getY() + GAP_Y);
 
         mPaintObjectList.addFirst(newObject);
         mPaintObjectList.removeLast();
 
-        for (int index = 0; index < FIREBALL_TAIL; index++) {
+        int size = mColorList.size();
+        for (int index = 0; index < size; index++) {
             mPaintObjectList.get(index).updateColor(mColorList.get(index));
         }
     }

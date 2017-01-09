@@ -47,7 +47,7 @@ public class Utils {
         return ret;
     }
 
-    public static int getRandBaseCoe(int base, int coe) {
-        return base + getRandInt(coe + 1);
+    public static int getRandBaseCoe(int base, int coefficient) {
+        return base + getRandInt(coefficient + 1);
     }
 }

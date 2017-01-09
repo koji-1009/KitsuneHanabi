@@ -4,12 +4,13 @@ import java.awt.*;
 
 public class PaintObjectImpl implements PaintObject {
 
+    private static final Color TMP_COLOR =  new Color(255, 255, 255);
     private int mX;
     private int mY;
     private Color mColor;
 
     public PaintObjectImpl(int x, int y) {
-        this(x, y, new Color(255, 255, 255));
+        this(x, y, TMP_COLOR);
     }
 
     public PaintObjectImpl(int x, int y, Color color) {
