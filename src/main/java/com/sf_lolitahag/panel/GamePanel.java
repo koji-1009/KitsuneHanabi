@@ -95,7 +95,7 @@ public class GamePanel extends AbstractPanel {
     private void drawHinotama(final Graphics g, final Firework fireworks) {
         if (fireworks.isFireballShow()) {
             fireworks.getFireball().getArray().forEach(fireball -> drawFireball(g, fireball));
-        } else if (fireworks.isSparksShow()) {
+        } else if (fireworks.isSparkShow()) {
             fireworks.getSparkList().forEach(sparks -> sparks.getArray().forEach(spark -> drawSpark(g, spark)));
         }
     }
