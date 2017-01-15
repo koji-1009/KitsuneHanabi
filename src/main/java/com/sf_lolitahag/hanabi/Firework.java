@@ -1,118 +1,118 @@
 package com.sf_lolitahag.hanabi;
 
 import com.sf_lolitahag.Utils;
-
-import javax.swing.*;
 import java.util.ArrayList;
+import javax.swing.Timer;
 
 public class Firework {
 
-    private static final int POSITION_BASE = 400;
-    private static final int POSITION_GAP = 300;
-    private static final int TIMER_POSITION_UPDATE_FIREBALL = 25;
-    private static final int TIMER_POSITION_UPDATE_SPARK = 150;
-    private static final int SPARK_COUNT_MIN = 50;
-    private static final int SPARK_COUNT_MAX = 250;
-    private static final int FIREBALL_LIFETIME_BASE = 3000;
-    private static final int FIREBALL_LIFETIME_COEFFICIENT = 2500;
-    private static final int SPARK_LIFETIME_BASE = 1250;
-    private static final int SPARK_LIFETIME_COEFFICIENT = 1000;
-    private static final double LAUNCH_PERCENT = 0.7;
-    private boolean mIsRun;
-    private boolean mFireballShow;
-    private boolean mSparksShow;
-    private Fireball mFireball;
-    private ArrayList<Spark> mSparkList = new ArrayList<>();
-    private Timer mUpdateTimer;
-    private Timer mFireballTimer;
-    private Timer mSparkTimer;
+  private static final int POSITION_BASE = 400;
+  private static final int POSITION_GAP = 300;
+  private static final int TIMER_POSITION_UPDATE_FIREBALL = 25;
+  private static final int TIMER_POSITION_UPDATE_SPARK = 150;
+  private static final int SPARK_COUNT_MIN = 50;
+  private static final int SPARK_COUNT_MAX = 250;
+  private static final int FIREBALL_LIFETIME_BASE = 3000;
+  private static final int FIREBALL_LIFETIME_COEFFICIENT = 2500;
+  private static final int SPARK_LIFETIME_BASE = 1250;
+  private static final int SPARK_LIFETIME_COEFFICIENT = 1000;
+  private static final double LAUNCH_PERCENT = 0.7;
+  private boolean isRun;
+  private boolean fireballShow;
+  private boolean sparksShow;
+  private Fireball fireball;
+  private ArrayList<Spark> sparks = new ArrayList<>();
+  private Timer updateTimer;
+  private Timer fireballTimer;
+  private Timer sparkTimer;
 
-    public Firework() {
-        mIsRun = false;
-        mFireballShow = false;
-        mSparksShow = false;
+  public Firework() {
+    isRun = false;
+    fireballShow = false;
+    sparksShow = false;
 
-        mFireball = new Fireball();
-        mUpdateTimer = new Timer(TIMER_POSITION_UPDATE_FIREBALL, (e) -> updatePosition());
+    fireball = new Fireball();
+    updateTimer = new Timer(TIMER_POSITION_UPDATE_FIREBALL, (e) -> updatePosition());
+  }
+
+  public Fireball getFireball() {
+    return fireball;
+  }
+
+  public ArrayList<Spark> getSparkList() {
+    return sparks;
+  }
+
+  public boolean isFireballShow() {
+    return fireballShow;
+  }
+
+  public boolean isSparkShow() {
+    return sparksShow;
+  }
+
+  public void startFireball() {
+    if (!isRun && Math.random() > LAUNCH_PERCENT) {
+      isRun = true;
+
+      initFireball(Utils.getRandBaseCoe(POSITION_BASE, POSITION_GAP), POSITION_BASE);
+      fireballShow = true;
+      fireballTimer = new Timer(
+          Utils.getRandBaseCoe(FIREBALL_LIFETIME_BASE, FIREBALL_LIFETIME_COEFFICIENT),
+          (e) -> onFinishFireball());
+      fireballTimer.start();
+
+      updateTimer.setDelay(TIMER_POSITION_UPDATE_FIREBALL);
+      updateTimer.start();
     }
+  }
 
-    public Fireball getFireball() {
-        return mFireball;
+  private void startSpark() {
+    initSpark(fireball.getTopX(), fireball.getTopY());
+    sparksShow = true;
+    sparkTimer = new Timer(Utils.getRandBaseCoe(SPARK_LIFETIME_BASE, SPARK_LIFETIME_COEFFICIENT),
+        (e) -> onFinishSpark());
+    sparkTimer.start();
+
+    updateTimer.setDelay(TIMER_POSITION_UPDATE_SPARK);
+    updateTimer.restart();
+  }
+
+  private void initFireball(int x, int y) {
+    fireball.init(x, y);
+  }
+
+  private void initSpark(int x, int y) {
+    sparks.clear();
+    int sparkCount = Utils.getRandRange(SPARK_COUNT_MIN, SPARK_COUNT_MAX);
+    for (int index = 0; index < sparkCount; index++) {
+      sparks.add(new Spark());
     }
+    sparks.forEach(spark -> spark.init(x, y));
+  }
 
-    public ArrayList<Spark> getSparkList() {
-        return mSparkList;
+  private void updatePosition() {
+    if (fireballShow) {
+      fireball.next();
+    } else if (sparksShow) {
+      sparks.forEach(Spark::next);
     }
+  }
 
-    public boolean isFireballShow() {
-        return mFireballShow;
-    }
+  private void onFinishFireball() {
+    updateTimer.stop();
 
-    public boolean isSparkShow() {
-        return mSparksShow;
-    }
+    fireballShow = false;
+    fireballTimer.stop();
 
-    public void startFireball() {
-        if (!mIsRun && Math.random() > LAUNCH_PERCENT) {
-            mIsRun = true;
+    startSpark();
+  }
 
-            initFireball(Utils.getRandBaseCoe(POSITION_BASE, POSITION_GAP), POSITION_BASE);
-            mFireballShow = true;
-            mFireballTimer = new Timer(Utils.getRandBaseCoe(FIREBALL_LIFETIME_BASE, FIREBALL_LIFETIME_COEFFICIENT),
-                    (e) -> onFinishFireball());
-            mFireballTimer.start();
+  private void onFinishSpark() {
+    sparksShow = false;
+    sparkTimer.stop();
 
-            mUpdateTimer.setDelay(TIMER_POSITION_UPDATE_FIREBALL);
-            mUpdateTimer.start();
-        }
-    }
-
-    private void startSpark() {
-        initSpark(mFireball.getTopX(), mFireball.getTopY());
-        mSparksShow = true;
-        mSparkTimer = new Timer(Utils.getRandBaseCoe(SPARK_LIFETIME_BASE, SPARK_LIFETIME_COEFFICIENT),
-                (e) -> onFinishSpark());
-        mSparkTimer.start();
-
-        mUpdateTimer.setDelay(TIMER_POSITION_UPDATE_SPARK);
-        mUpdateTimer.restart();
-    }
-
-    private void initFireball(int x, int y) {
-        mFireball.init(x, y);
-    }
-
-    private void initSpark(int x, int y) {
-        mSparkList.clear();
-        int sparkCount = Utils.getRandRange(SPARK_COUNT_MIN, SPARK_COUNT_MAX);
-        for (int index = 0; index < sparkCount; index++) {
-            mSparkList.add(new Spark());
-        }
-        mSparkList.forEach(spark -> spark.init(x, y));
-    }
-
-    private void updatePosition() {
-        if (mFireballShow) {
-            mFireball.next();
-        } else if (mSparksShow) {
-            mSparkList.forEach(Spark::next);
-        }
-    }
-
-    private void onFinishFireball() {
-        mUpdateTimer.stop();
-
-        mFireballShow = false;
-        mFireballTimer.stop();
-
-        startSpark();
-    }
-
-    private void onFinishSpark() {
-        mSparksShow = false;
-        mSparkTimer.stop();
-
-        mUpdateTimer.stop();
-        mIsRun = false;
-    }
+    updateTimer.stop();
+    isRun = false;
+  }
 }

@@ -5,28 +5,28 @@ import java.util.LinkedList;
 
 public abstract class AbsPaintArray {
 
-    protected LinkedList<PaintObject> mPaintObjectList = new LinkedList<>();
+  protected LinkedList<PaintObject> paintObjects = new LinkedList<>();
 
-    public void init(int x, int y) {
-        mPaintObjectList.clear();
+  public void init(int x, int y) {
+    paintObjects.clear();
+  }
+
+  public int getTopX() {
+    return paintObjects.getFirst().getX();
+  }
+
+  public int getTopY() {
+    return paintObjects.getFirst().getY();
+  }
+
+  public ArrayList<PaintObject> getArray() {
+    ArrayList<PaintObject> ret = new ArrayList<>();
+    for (PaintObject object : paintObjects) {
+      ret.add(object);
     }
 
-    public int getTopX() {
-        return mPaintObjectList.getFirst().getX();
-    }
+    return ret;
+  }
 
-    public int getTopY() {
-        return mPaintObjectList.getFirst().getY();
-    }
-
-    public ArrayList<PaintObject> getArray() {
-        ArrayList<PaintObject> ret = new ArrayList<>();
-        for (PaintObject object : mPaintObjectList) {
-            ret.add(object);
-        }
-
-        return ret;
-    }
-
-    public abstract void next();
+  public abstract void next();
 }

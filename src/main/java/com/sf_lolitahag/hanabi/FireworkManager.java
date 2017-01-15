@@ -1,26 +1,26 @@
 package com.sf_lolitahag.hanabi;
 
-import javax.swing.*;
 import java.util.ArrayList;
+import javax.swing.Timer;
 
 public class FireworkManager {
 
-    private static final int HINOTAMA_MAX = 8;
-    private static final int LAUNCH_INTERVAL = 1250;
-    private ArrayList<Firework> mFireworks = new ArrayList<>();
+  private static final int HINOTAMA_MAX = 8;
+  private static final int LAUNCH_INTERVAL = 1250;
+  private ArrayList<Firework> fireworks = new ArrayList<>();
 
-    public FireworkManager() {
-        for (int i = 0; i < HINOTAMA_MAX; i++) {
-            mFireworks.add(new Firework());
-        }
-        new Timer(LAUNCH_INTERVAL, (e) -> startLaunch()).start();
+  public FireworkManager() {
+    for (int i = 0; i < HINOTAMA_MAX; i++) {
+      fireworks.add(new Firework());
     }
+    new Timer(LAUNCH_INTERVAL, (e) -> startLaunch()).start();
+  }
 
-    private void startLaunch() {
-        mFireworks.forEach(Firework::startFireball);
-    }
+  private void startLaunch() {
+    fireworks.forEach(Firework::startFireball);
+  }
 
-    public ArrayList<Firework> getFireworks() {
-        return mFireworks;
-    }
+  public ArrayList<Firework> getFireworks() {
+    return fireworks;
+  }
 }

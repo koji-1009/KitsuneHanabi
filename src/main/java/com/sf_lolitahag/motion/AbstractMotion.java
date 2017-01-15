@@ -1,10 +1,9 @@
 package com.sf_lolitahag.motion;
 
+import java.awt.Image;
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 import org.ehcache.config.builders.CacheManagerBuilder;
-
-import java.awt.*;
 
 /**
  * パネル上で表示するオブジェクトのBaseクラス
@@ -12,30 +11,31 @@ import java.awt.*;
  */
 public abstract class AbstractMotion {
 
-    private static final String EMPTY = "";
-    protected static final CacheManager CACHE_MANAGER = CacheManagerBuilder.newCacheManagerBuilder().build(true);
-    protected int mAxisX = 0;
-    protected int mAxisY = 0;
-    protected boolean mIsShow = true;
-    protected String mFileName = EMPTY;
-    protected Cache<String, Image> mCache;
+  protected static final CacheManager CACHE_MANAGER = CacheManagerBuilder.newCacheManagerBuilder()
+      .build(true);
+  private static final String EMPTY = "";
+  protected int axisX = 0;
+  protected int axisY = 0;
+  protected boolean isShow = true;
+  protected String fileName = EMPTY;
+  protected Cache<String, Image> cache;
 
-    public final int getAxisX() {
-        return mAxisX;
-    }
+  public final int getAxisX() {
+    return axisX;
+  }
 
-    public final int getAxisY() {
-        return mAxisY;
-    }
+  public final int getAxisY() {
+    return axisY;
+  }
 
-    public final Image getBodyImage() {
-        if (mFileName.equals(EMPTY)) {
-            return null;
-        }
-        return mCache.get(mFileName);
+  public final Image getBodyImage() {
+    if (fileName.equals(EMPTY)) {
+      return null;
     }
+    return cache.get(fileName);
+  }
 
-    public final boolean isShow() {
-        return mIsShow;
-    }
+  public final boolean isShow() {
+    return isShow;
+  }
 }
