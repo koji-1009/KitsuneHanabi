@@ -13,3 +13,6 @@ classes/
 
 # IntellJ IDEA
 .idea/
+
+# MacOS
+.DS_Store
