@@ -6,6 +6,7 @@ http://opensource.org/licenses/mit-license.php
 */
 package com.sf_lolitahag.hanabi;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.Timer;
 
@@ -26,7 +27,7 @@ public class FireworkManager {
     fireworks.forEach(Firework::startFireball);
   }
 
-  public ArrayList<Firework> getFireworks() {
-    return fireworks;
+  public void draw(final Graphics g) {
+    fireworks.parallelStream().forEach(firework -> firework.draw(g));
   }
 }

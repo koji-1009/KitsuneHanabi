@@ -8,6 +8,7 @@ package com.sf_lolitahag.hanabi;
 
 import com.sf_lolitahag.Utils;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Fireball extends AbsPaintArray {
@@ -52,5 +53,15 @@ public class Fireball extends AbsPaintArray {
     for (int index = 0; index < size; index++) {
       paintObjects.get(index).updateColor(colors.get(index));
     }
+  }
+
+  @Override
+  public void draw(final Graphics g) {
+    paintObjects.parallelStream().forEach(paintObject -> drawFireball(g, paintObject));
+  }
+
+  private void drawFireball(final Graphics g, final PaintObject fireball) {
+    g.setColor(fireball.getColor());
+    g.fillOval(fireball.getX(), fireball.getY(), 4, 4);
   }
 }

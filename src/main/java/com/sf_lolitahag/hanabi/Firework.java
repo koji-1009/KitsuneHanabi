@@ -7,6 +7,7 @@ http://opensource.org/licenses/mit-license.php
 package com.sf_lolitahag.hanabi;
 
 import com.sf_lolitahag.Utils;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.Timer;
 
@@ -23,38 +24,25 @@ public class Firework {
   private static final int SPARK_LIFETIME_BASE = 1250;
   private static final int SPARK_LIFETIME_COEFFICIENT = 1000;
   private static final double LAUNCH_PERCENT = 0.7;
-  private boolean isRun;
-  private boolean fireballShow;
-  private boolean sparksShow;
-  private Fireball fireball;
-  private ArrayList<Spark> sparks = new ArrayList<>();
-  private Timer updateTimer;
+  private boolean isRun = false;
+  private boolean isFireballShow = false;
+  private boolean isSparksShow = false;
+  private final Fireball fireball = new Fireball();
+  private final ArrayList<Spark> sparks = new ArrayList<>();
+  private final Timer updateTimer = new Timer(TIMER_POSITION_UPDATE_FIREBALL,
+      (e) -> updatePosition());
   private Timer fireballTimer;
   private Timer sparkTimer;
 
   public Firework() {
-    isRun = false;
-    fireballShow = false;
-    sparksShow = false;
-
-    fireball = new Fireball();
-    updateTimer = new Timer(TIMER_POSITION_UPDATE_FIREBALL, (e) -> updatePosition());
   }
 
-  public Fireball getFireball() {
-    return fireball;
-  }
-
-  public ArrayList<Spark> getSparkList() {
-    return sparks;
-  }
-
-  public boolean isFireballShow() {
-    return fireballShow;
-  }
-
-  public boolean isSparkShow() {
-    return sparksShow;
+  public void draw(final Graphics g) {
+    if (isFireballShow) {
+      fireball.draw(g);
+    } else if (isSparksShow) {
+      sparks.parallelStream().forEach(spark -> spark.draw(g));
+    }
   }
 
   public void startFireball() {
@@ -62,7 +50,7 @@ public class Firework {
       isRun = true;
 
       initFireball(Utils.getRandBaseCoe(POSITION_BASE, POSITION_GAP), POSITION_BASE);
-      fireballShow = true;
+      isFireballShow = true;
       fireballTimer = new Timer(
           Utils.getRandBaseCoe(FIREBALL_LIFETIME_BASE, FIREBALL_LIFETIME_COEFFICIENT),
           (e) -> onFinishFireball());
@@ -75,7 +63,7 @@ public class Firework {
 
   private void startSpark() {
     initSpark(fireball.getTopX(), fireball.getTopY());
-    sparksShow = true;
+    isSparksShow = true;
     sparkTimer = new Timer(Utils.getRandBaseCoe(SPARK_LIFETIME_BASE, SPARK_LIFETIME_COEFFICIENT),
         (e) -> onFinishSpark());
     sparkTimer.start();
@@ -98,9 +86,9 @@ public class Firework {
   }
 
   private void updatePosition() {
-    if (fireballShow) {
+    if (isFireballShow) {
       fireball.next();
-    } else if (sparksShow) {
+    } else if (isSparksShow) {
       sparks.forEach(Spark::next);
     }
   }
@@ -108,14 +96,14 @@ public class Firework {
   private void onFinishFireball() {
     updateTimer.stop();
 
-    fireballShow = false;
+    isFireballShow = false;
     fireballTimer.stop();
 
     startSpark();
   }
 
   private void onFinishSpark() {
-    sparksShow = false;
+    isSparksShow = false;
     sparkTimer.stop();
 
     updateTimer.stop();

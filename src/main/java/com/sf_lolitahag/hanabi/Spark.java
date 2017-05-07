@@ -8,6 +8,7 @@ package com.sf_lolitahag.hanabi;
 
 import com.sf_lolitahag.Utils;
 import java.awt.Color;
+import java.awt.Graphics;
 
 public class Spark extends AbsPaintArray {
 
@@ -76,5 +77,15 @@ public class Spark extends AbsPaintArray {
     for (PaintObject object : paintObjects) {
       object.updateColor(newColor);
     }
+  }
+
+  @Override
+  public void draw(final Graphics g) {
+    paintObjects.forEach(paintObject -> drawSpark(g, paintObject));
+  }
+
+  private void drawSpark(final Graphics g, final PaintObject spark) {
+    g.setColor(spark.getColor());
+    g.fillOval(spark.getX(), spark.getY(), 2, 2);
   }
 }

@@ -16,5 +16,5 @@ public interface PaintObject {
 
   Color getColor();
 
-  void updateColor(Color color);
+  void updateColor(final Color color);
 }

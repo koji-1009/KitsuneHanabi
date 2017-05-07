@@ -7,9 +7,7 @@ http://opensource.org/licenses/mit-license.php
 package com.sf_lolitahag.panel;
 
 import com.sf_lolitahag.Utils;
-import com.sf_lolitahag.hanabi.Firework;
 import com.sf_lolitahag.hanabi.FireworkManager;
-import com.sf_lolitahag.hanabi.PaintObject;
 import com.sf_lolitahag.motion.AbstractMotion;
 import com.sf_lolitahag.motion.Furin;
 import com.sf_lolitahag.motion.Human;
@@ -17,6 +15,7 @@ import com.sf_lolitahag.motion.Kitsune;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.Timer;
 
 public class GamePanel extends AbstractPanel {
@@ -28,7 +27,7 @@ public class GamePanel extends AbstractPanel {
   private final Image back;
   private final Image room;
   private final Image sky;
-  private ArrayList<AbstractMotion> motions = new ArrayList<>();
+  private final List<AbstractMotion> motions = new ArrayList<>();
   private Human human;
   private Kitsune kitsune;
   private FireworkManager fireworkManager;
@@ -49,22 +48,19 @@ public class GamePanel extends AbstractPanel {
   }
 
   @Override
-  protected void paintComponent(Graphics g) {
+  protected void paintComponent(final Graphics g) {
     g.drawImage(sky, 0, 0, null);
     g.drawImage(back, 0, 0, null);
     g.drawImage(room, 0, 0, null);
 
-    motions.forEach(motion -> {
-      if (motion.isShow()) {
-        g.drawImage(motion.getBodyImage(), motion.getAxisX(), motion.getAxisY(), null);
-      }
-    });
+    motions.parallelStream()
+        .filter(AbstractMotion::isShow)
+        .forEach(m -> g.drawImage(m.getBodyImage(), m.getAxisX(), m.getAxisY(), null));
 
-    fireworkManager.getFireworks().forEach(fireworks -> drawHinotama(g, fireworks));
+    fireworkManager.draw(g);
   }
 
   private void initMotions() {
-    Furin furin = new Furin();
     human = new Human(new Human.Callback() {
       @Override
       public void onStartOkosuMotion() {
@@ -89,31 +85,12 @@ public class GamePanel extends AbstractPanel {
       }
     });
 
-    motions.add(furin);
+    motions.add(new Furin());
     motions.add(human);
     motions.add(kitsune);
   }
 
   private void startRepaintTimer() {
     new Timer(PAINT_INTERVAL, (e) -> repaint()).start();
-  }
-
-  private void drawHinotama(final Graphics g, final Firework fireworks) {
-    if (fireworks.isFireballShow()) {
-      fireworks.getFireball().getArray().forEach(fireball -> drawFireball(g, fireball));
-    } else if (fireworks.isSparkShow()) {
-      fireworks.getSparkList()
-          .forEach(sparks -> sparks.getArray().forEach(spark -> drawSpark(g, spark)));
-    }
-  }
-
-  private void drawFireball(Graphics g, PaintObject fireball) {
-    g.setColor(fireball.getColor());
-    g.fillOval(fireball.getX(), fireball.getY(), 4, 4);
-  }
-
-  private void drawSpark(Graphics g, PaintObject spark) {
-    g.setColor(spark.getColor());
-    g.fillOval(spark.getX(), spark.getY(), 2, 2);
   }
 }
