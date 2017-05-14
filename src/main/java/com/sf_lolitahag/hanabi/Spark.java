@@ -7,7 +7,7 @@ http://opensource.org/licenses/mit-license.php
 package com.sf_lolitahag.hanabi;
 
 import com.sf_lolitahag.Utils;
-import java.awt.Color;
+import java.awt.Graphics;
 
 public class Spark extends AbsPaintArray {
 
@@ -37,12 +37,8 @@ public class Spark extends AbsPaintArray {
     int r = Utils.getRandBaseCoe(COLOR_R_BASE, COLOR_R_COEFFICIENT);
     int g = Utils.getRandBaseCoe(COLOR_GB_BASE, COLOR_GB_COEFFICIENT);
     int b = Utils.getRandBaseCoe(COLOR_GB_BASE, COLOR_GB_COEFFICIENT);
-    Color color = new Color(r, g, b, ALPHA_BASE);
-
     int tail = Utils.getRandRange(TAIL_COUNT_MIN, TAIL_COUNT_MAX);
-    for (int index = 0; index < tail; index++) {
-      paintObjects.add(new PaintObjectImpl(x, y, color));
-    }
+    initList(x, y, r, g, b, ALPHA_BASE, tail);
 
     double roll = Math.random() * Math.PI * 2;
     double coefficient = Utils.getRandBaseCoe(EXPLOSION_BASE, EXPLOSION_COEFFICIENT);
@@ -60,21 +56,15 @@ public class Spark extends AbsPaintArray {
     if (Math.floor(gapX) == 0) {
       gapX = 0;
     }
-    PaintObject firstObject = paintObjects.getFirst();
-    PaintObject newObject = new PaintObjectImpl(firstObject.getX() + (int) gapX,
-        firstObject.getY() + (int) gapY);
+    addTop((int) gapX, (int) gapY);
+    int alpha = getTopAlpha() - Utils.getRandRange(ALPHA_DECREASE_MIN, ALPHA_DECREASE_MAX);
+    alpha = alpha > 0 ? alpha : 0;
+    updateAlpha(alpha);
+  }
 
-    paintObjects.addFirst(newObject);
-    paintObjects.removeLast();
-
-    Color color = firstObject.getColor();
-    int alpha = color.getAlpha() - Utils.getRandRange(ALPHA_DECREASE_MIN, ALPHA_DECREASE_MAX);
-    if (alpha < 0) {
-      alpha = 0;
-    }
-    Color newColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
-    for (PaintObject object : paintObjects) {
-      object.updateColor(newColor);
-    }
+  @Override
+  protected void drawObject(final Graphics g, final PaintObject spark) {
+    g.setColor(spark.getColor());
+    g.fillOval(spark.getX(), spark.getY(), 2, 2);
   }
 }

@@ -6,13 +6,14 @@ http://opensource.org/licenses/mit-license.php
 */
 package com.sf_lolitahag.hanabi;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.Timer;
 
 public class FireworkManager {
 
-  private static final int HINOTAMA_MAX = 8;
-  private static final int LAUNCH_INTERVAL = 1250;
+  private static final int HINOTAMA_MAX = 6;
+  private static final int LAUNCH_INTERVAL = 1150;
   private ArrayList<Firework> fireworks = new ArrayList<>();
 
   public FireworkManager() {
@@ -23,10 +24,11 @@ public class FireworkManager {
   }
 
   private void startLaunch() {
-    fireworks.forEach(Firework::startFireball);
+    fireworks.parallelStream().filter(Firework::isNotRun)
+        .forEach(Firework::startFireball);
   }
 
-  public ArrayList<Firework> getFireworks() {
-    return fireworks;
+  public void draw(final Graphics g) {
+    fireworks.forEach(firework -> firework.draw(g));
   }
 }
