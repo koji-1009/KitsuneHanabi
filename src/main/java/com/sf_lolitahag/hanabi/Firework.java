@@ -15,7 +15,7 @@ public class Firework {
 
   private static final int POSITION_BASE = 400;
   private static final int POSITION_GAP = 300;
-  private static final int TIMER_POSITION_UPDATE_FIREBALL = 25;
+  private static final int TIMER_POSITION_UPDATE_FIREBALL = 30;
   private static final int TIMER_POSITION_UPDATE_SPARK = 150;
   private static final int SPARK_COUNT_MIN = 50;
   private static final int SPARK_COUNT_MAX = 250;
@@ -23,7 +23,7 @@ public class Firework {
   private static final int FIREBALL_LIFETIME_COEFFICIENT = 2500;
   private static final int SPARK_LIFETIME_BASE = 1250;
   private static final int SPARK_LIFETIME_COEFFICIENT = 1000;
-  private static final double LAUNCH_PERCENT = 0.7;
+  private static final double LAUNCH_PERCENT = 0.85;
   private boolean isRun = false;
   private boolean isFireballShow = false;
   private boolean isSparksShow = false;
@@ -45,16 +45,20 @@ public class Firework {
     }
   }
 
+  public boolean isNotRun() {
+    return !isRun;
+  }
+
   public void startFireball() {
-    if (!isRun && Math.random() > LAUNCH_PERCENT) {
+    if (Math.random() > LAUNCH_PERCENT) {
       isRun = true;
 
       initFireball(Utils.getRandBaseCoe(POSITION_BASE, POSITION_GAP), POSITION_BASE);
-      isFireballShow = true;
-      fireballTimer = new Timer(
-          Utils.getRandBaseCoe(FIREBALL_LIFETIME_BASE, FIREBALL_LIFETIME_COEFFICIENT),
+      fireballTimer =
+          new Timer(Utils.getRandBaseCoe(FIREBALL_LIFETIME_BASE, FIREBALL_LIFETIME_COEFFICIENT),
           (e) -> onFinishFireball());
       fireballTimer.start();
+      isFireballShow = true;
 
       updateTimer.setDelay(TIMER_POSITION_UPDATE_FIREBALL);
       updateTimer.start();

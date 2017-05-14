@@ -20,7 +20,7 @@ import javax.swing.Timer;
 
 public class GamePanel extends AbstractPanel {
 
-  private static final int PAINT_INTERVAL = 30;
+  private static final int PAINT_INTERVAL = 33;
   private static final String BACK = "back";
   private static final String ROOM = "room";
   private static final String SKY = "sky";
@@ -53,8 +53,7 @@ public class GamePanel extends AbstractPanel {
     g.drawImage(back, 0, 0, null);
     g.drawImage(room, 0, 0, null);
 
-    motions.parallelStream()
-        .filter(AbstractMotion::isShow)
+    motions.stream().filter(AbstractMotion::isShow)
         .forEach(m -> g.drawImage(m.getBodyImage(), m.getAxisX(), m.getAxisY(), null));
 
     fireworkManager.draw(g);
