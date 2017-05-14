@@ -12,8 +12,8 @@ import javax.swing.Timer;
 
 public class FireworkManager {
 
-  private static final int HINOTAMA_MAX = 8;
-  private static final int LAUNCH_INTERVAL = 1250;
+  private static final int HINOTAMA_MAX = 6;
+  private static final int LAUNCH_INTERVAL = 1500;
   private ArrayList<Firework> fireworks = new ArrayList<>();
 
   public FireworkManager() {
@@ -24,10 +24,10 @@ public class FireworkManager {
   }
 
   private void startLaunch() {
-    fireworks.forEach(Firework::startFireball);
+    fireworks.parallelStream().forEach(Firework::startFireball);
   }
 
   public void draw(final Graphics g) {
-    fireworks.parallelStream().forEach(firework -> firework.draw(g));
+    fireworks.forEach(firework -> firework.draw(g));
   }
 }

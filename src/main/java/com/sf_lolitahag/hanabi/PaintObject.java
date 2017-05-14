@@ -14,7 +14,17 @@ public interface PaintObject {
 
   int getY();
 
+  void setMoveX(int positionX);
+
+  void setMoveY(int positionY);
+
+  void movePositionNext();
+
+  void moveIndexNext();
+
+  void setAlpha(int alpha);
+
   Color getColor();
 
-  void updateColor(final Color color);
+  PaintObject clone();
 }

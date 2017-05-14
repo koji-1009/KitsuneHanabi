@@ -8,21 +8,31 @@ package com.sf_lolitahag.hanabi;
 
 import java.awt.Color;
 
-public class PaintObjectImpl implements PaintObject {
+public class PaintObjectImpl implements PaintObject, Cloneable {
 
-  private static final Color TMP_COLOR = new Color(255, 255, 255);
   private int x;
   private int y;
-  private Color color;
+  private int r;
+  private int g;
+  private int b;
+  private int tail;
+  private int index;
+  private int alpha;
+  private int moveAxisX;
+  private int moveAxisY;
 
-  public PaintObjectImpl(int x, int y) {
-    this(x, y, TMP_COLOR);
-  }
-
-  public PaintObjectImpl(int x, int y, Color color) {
+  public PaintObjectImpl(int x, int y, int r, int g, int b, int alpha, int tail, int index,
+      int moveAxisX, int moveAxisY) {
     this.x = x;
     this.y = y;
-    this.color = color;
+    this.r = r;
+    this.g = g;
+    this.b = b;
+    this.tail = tail;
+    this.index = index;
+    this.alpha = alpha;
+    this.moveAxisX = moveAxisX;
+    this.moveAxisY = moveAxisY;
   }
 
   @Override
@@ -36,12 +46,44 @@ public class PaintObjectImpl implements PaintObject {
   }
 
   @Override
-  public Color getColor() {
-    return color;
+  public void setMoveX(int moveX) {
+    moveAxisX = moveX;
   }
 
   @Override
-  public void updateColor(Color color) {
-    this.color = color;
+  public void setMoveY(int moveY) {
+    moveAxisY = moveY;
+  }
+
+  @Override
+  public void movePositionNext() {
+    x = x + moveAxisX;
+    y = y + moveAxisY;
+  }
+
+  @Override
+  public void moveIndexNext() {
+    index += 1;
+  }
+
+  @Override
+  public void setAlpha(int alpha) {
+    this.alpha = alpha;
+  }
+
+  @Override
+  public Color getColor() {
+    return new Color(r, g, b, alpha * (tail - index) / tail);
+  }
+
+  @Override
+  public PaintObject clone() {
+    PaintObject o = null;
+    try {
+      o = (PaintObject) super.clone();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return o;
   }
 }
