@@ -1,26 +1,26 @@
 group 'com.sf_lolitahag'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'java'
+apply plugin: 'kotlin'
 
 defaultTasks 'clean', 'build'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 version = "1.0"
+mainClassName = 'com.sf_lolitahag.Main'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile group: 'org.ehcache', name: 'ehcache', version: '3.1.3'
-    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.7'
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-}
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-mainClassName = 'com.sf_lolitahag.Main'
+    implementation group: 'org.ehcache', name: 'ehcache', version: '3.1.3'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.7'
+    testImplementation group: 'junit', name: 'junit', version: '4.11'
+}
 
 jar {
     from {
@@ -33,5 +33,25 @@ jar {
     }
     manifest {
         attributes 'Main-Class': mainClassName
+    }
+}
+
+buildscript {
+    ext.kotlin_version = '1.3.20'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
